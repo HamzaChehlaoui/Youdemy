@@ -20,9 +20,9 @@
                     </div>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <button class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800">
+                    <a href="front_and/login.php"><button class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800">
                         Connexion
-                    </button>
+                    </button></a>
                     <button class="border border-black text-black px-4 py-2 rounded-lg hover:bg-gray-100">
                         Inscription
                     </button>

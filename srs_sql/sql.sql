@@ -6,7 +6,7 @@ CREATE TABLE users (
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     role ENUM('admin', 'teacher', 'student') NOT NULL,
-    status ENUM('pending', 'active', 'suspended') DEFAULT 'pending',
+    status ENUM('pending', 'active', 'suspended') DEFAULT 'pending'
     
 );
 
@@ -14,14 +14,14 @@ CREATE TABLE users (
 CREATE TABLE categories (
     id_categories INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL UNIQUE,
-    description TEXT,
-   
+    description TEXT
+
 );
 
 -- Table des tags
 CREATE TABLE tags (
     id_tags INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(30) NOT NULL UNIQUE,
+    name VARCHAR(30) NOT NULL UNIQUE
 
 );
 
