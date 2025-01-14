@@ -15,7 +15,7 @@
                     <a href="#" class="text-2xl font-bold text-white">Youdemy</a>
                     <div class="hidden md:flex space-x-8 ml-10">
                         <a href="#" class="text-white hover:text-gray-300 px-3 py-2">Accueil</a>
-                        <a href="#" class="text-white hover:text-gray-300 px-3 py-2">Cours</a>
+                        <a href="front_and/cours.php" class="text-white hover:text-gray-300 px-3 py-2">Cours</a>
                         <a href="#" class="text-white hover:text-gray-300 px-3 py-2">Catégories</a>
                     </div>
                 </div>
