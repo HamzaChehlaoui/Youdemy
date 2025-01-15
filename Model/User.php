@@ -6,7 +6,7 @@
     private $username;
     private $email;
     private $password;
-    private $role;   
+    private $role;
     private $status;
 
     public function __construct($db) {

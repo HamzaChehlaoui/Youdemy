@@ -79,88 +79,125 @@
 
             <!-- Content Management Section -->
             <div id="content-tab" class="tab-content hidden">
-                <div class="grid gap-6">
-                    <!-- Course Management -->
-                    <div class="bg-white rounded-lg shadow-lg p-6">
-                        <h2 class="text-2xl font-bold text-black mb-6">Gestion des Cours</h2>
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700">Catégorie</label>
-                            <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-                                <option>Développement</option>
-                                <option>Design</option>
-                                <option>Business</option>
-                                <option>Marketing</option>
-                            </select>
-                        </div>
-                        <table class="min-w-full">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Titre</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Enseignant</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Étudiants</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                                <tr>
-                                    <td class="px-6 py-4">Développement Web Full-Stack</td>
-                                    <td class="px-6 py-4">Marie Dupont</td>
-                                    <td class="px-6 py-4">89</td>
-                                    <td class="px-6 py-4">
-                                        <button class="text-blue-600 hover:text-blue-800">Modifier</button>
-                                        <button class="text-red-600 hover:text-red-800 ml-4">Supprimer</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+         
+    <div class="grid gap-6">
+        <!-- Tags and Categories Management -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Category Management -->
+                <div>
+                    <h2 class="text-xl font-bold text-black mb-4">Gestion des Catégories</h2>
+                    <div class="mb-4">
+                        <input type="text" placeholder="Nouvelle catégorie" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                        <button class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                            Ajouter une catégorie
+                        </button>
                     </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                            <span>Développement</span>
+                            <div class="flex space-x-2">
+                                <button class="text-blue-600 hover:text-blue-800">Modifier</button>
+                                <button class="text-red-600 hover:text-red-800">Supprimer</button>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                            <span>Design</span>
+                            <div class="flex space-x-2">
+                                <button class="text-blue-600 hover:text-blue-800">Modifier</button>
+                                <button class="text-red-600 hover:text-red-800">Supprimer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                    <!-- Bulk Grade Entry -->
-                    <div class="bg-white rounded-lg shadow-lg p-6">
-                        <h2 class="text-2xl font-bold text-black mb-6">Saisie en Masse des Notes</h2>
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700">Cours</label>
-                            <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-                                <option>Développement Web Full-Stack</option>
-                                <option>Design UX/UI</option>
-                                <option>Marketing Digital</option>
-                            </select>
+                <!-- Tag Management -->
+                <div>
+                    <h2 class="text-xl font-bold text-black mb-4">Gestion des Tags</h2>
+                    <div class="mb-4">
+                        <input type="text" placeholder="Nouveau tag" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                        <button class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                            Ajouter un tag
+                        </button>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <div class="inline-flex items-center bg-gray-100 rounded-full px-3 py-1">
+                            <span>JavaScript</span>
+                            <button class="ml-2 text-red-600 hover:text-red-800">&times;</button>
                         </div>
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full">
-                                <thead class="bg-gray-50">
-                                    <tr>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Étudiant</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Note Actuelle</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Nouvelle Note</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="bg-white divide-y divide-gray-200">
-                                    <tr>
-                                        <td class="px-6 py-4">Jean Dubois</td>
-                                        <td class="px-6 py-4">85</td>
-                                        <td class="px-6 py-4">
-                                            <input type="number" class="border rounded px-2 py-1 w-20" min="0" max="100">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="px-6 py-4">Marie Lambert</td>
-                                        <td class="px-6 py-4">92</td>
-                                        <td class="px-6 py-4">
-                                            <input type="number" class="border rounded px-2 py-1 w-20" min="0" max="100">
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="inline-flex items-center bg-gray-100 rounded-full px-3 py-1">
+                            <span>HTML</span>
+                            <button class="ml-2 text-red-600 hover:text-red-800">&times;</button>
                         </div>
-                        <div class="mt-4">
-                            <button class="bg-black text-white px-6 py-2 rounded hover:bg-gray-800">
-                                Enregistrer Toutes les Notes
-                            </button>
+                        <div class="inline-flex items-center bg-gray-100 rounded-full px-3 py-1">
+                            <span>CSS</span>
+                            <button class="ml-2 text-red-600 hover:text-red-800">&times;</button>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Course Management (Updated with Tags) -->
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-2xl font-bold text-black mb-6">Gestion des Cours</h2>
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Catégorie</label>
+                    <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                        <option>Développement</option>
+                        <option>Design</option>
+                        <option>Business</option>
+                        <option>Marketing</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Filtrer par tag</label>
+                    <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                        <option>Tous les tags</option>
+                        <option>JavaScript</option>
+                        <option>HTML</option>
+                        <option>CSS</option>
+                    </select>
+                </div>
+            </div>
+            <table class="min-w-full">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Titre</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Enseignant</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Catégorie</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tags</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Étudiants</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    <tr>
+                        <td class="px-6 py-4">Développement Web Full-Stack</td>
+                        <td class="px-6 py-4">Marie Dupont</td>
+                        <td class="px-6 py-4">Développement</td>
+                        <td class="px-6 py-4">
+                            <div class="flex flex-wrap gap-1">
+                                <span class="inline-block bg-gray-100 rounded-full px-2 py-1 text-xs">HTML</span>
+                                <span class="inline-block bg-gray-100 rounded-full px-2 py-1 text-xs">CSS</span>
+                                <span class="inline-block bg-gray-100 rounded-full px-2 py-1 text-xs">JavaScript</span>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4">89</td>
+                        <td class="px-6 py-4">
+                            <button class="text-blue-600 hover:text-blue-800">Modifier</button>
+                            <button class="text-red-600 hover:text-red-800 ml-4">Supprimer</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+                
+              
+            
 
             <!-- Statistics Section -->
             <div id="stats-tab" class="tab-content hidden">
