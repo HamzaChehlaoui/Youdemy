@@ -1,3 +1,7 @@
+<?php 
+require_once "../Controller/teacher.php";
+
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -6,6 +10,7 @@
     <title>Youdemy - Administration</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-gray-100">
     <!-- Navigation -->
     <nav class="fixed top-0 w-full bg-black shadow-sm z-50">
@@ -48,32 +53,43 @@
                 <div class="mb-8">
                     <h2 class="text-2xl font-bold text-black mb-6">Validation des Enseignants</h2>
                     <div class="grid gap-6">
-                        <!-- Teacher Cards -->
-                        <div class="bg-white rounded-lg shadow-lg p-6">
-                            <div class="flex justify-between items-start">
-                                <div>
-                                    <h3 class="text-xl font-semibold">Marie Dupont</h3>
-                                    <p class="text-gray-600">4 cours · 156 étudiants</p>
-                                    <p class="text-gray-600 mt-2">Email: marie.dupont@email.com</p>
-                                    <p class="text-gray-600">Date d'inscription: 15/01/2025</p>
-                                    <div class="mt-2">
-                                        <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Actif</span>
-                                    </div>
+                <?php
+                $result = $teacher->getAllTeachers();
+                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                    $statusClass = $row['status'] === 'active' ? 'bg-green-100 text-green-800' : 
+                                 ($row['status'] === 'suspended' ? 'bg-yellow-100 text-yellow-800' : 
+                                 'bg-gray-100 text-gray-800');
+                    ?>
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-xl font-semibold"><?php echo htmlspecialchars($row['username']); ?></h3>
+                                <p class="text-gray-600"><?php echo $row['course_count']; ?> cours · <?php echo $row['student_count']; ?> étudiants</p>
+                                <p class="text-gray-600 mt-2">Email: <?php echo htmlspecialchars($row['email']); ?></p>
+                                      <div class="mt-2">
+                                    <span class="<?php echo $statusClass; ?> text-xs px-2 py-1 rounded">
+                                       Status : <?php echo ucfirst($row['status']); ?>
+                                    </span>
                                 </div>
-                                <div class="flex space-x-2">
-                                    <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
-                                        Activer
-                                    </button>
-                                    <button class="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700">
-                                        Suspendre
-                                    </button>
-                                    <button class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
-                                        Supprimer
-                                    </button>
-                                </div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button onclick="handleAction('activate', <?php echo $row['id_user']; ?>)" 
+                                        class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+                                    Activer
+                                </button>
+                                <button onclick="handleAction('suspend', <?php echo $row['id_user']; ?>)" 
+                                        class="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700">
+                                    Suspendre
+                                </button>
+                                <button onclick="handleAction('delete', <?php echo $row['id_user']; ?>)" 
+                                        class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
+                                    Supprimer
+                                </button>
                             </div>
                         </div>
                     </div>
+                <?php } ?>
+            </div>
                 </div>
             </div>
 
@@ -195,8 +211,6 @@
         </div>
     </div>
 </div>
-                
-              
             
 
             <!-- Statistics Section -->
@@ -283,6 +297,25 @@
             event.target.classList.remove('text-gray-500');
             event.target.classList.add('text-black', 'border-b-2', 'border-black');
         }
+        function handleAction(action, userId) {
+            fetch('', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    action: action,
+                    id: userId
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                }
+            });
+        }
+    
     </script>
 </body>
 </html>

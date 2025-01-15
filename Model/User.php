@@ -1,6 +1,6 @@
 <?php  class User {
-    private $conn;
-    private $table = "users";
+    protected $conn;
+    protected $table = "users";
 
     private $id;
     private $username;
@@ -120,7 +120,50 @@
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC) ? true : false;
     }
-  
 
+
+}
+class Teacher extends User {
+   
+
+    public function __construct($db) {
+        parent::__construct($db);
+    }
+
+    public function getAllTeachers() {
+        $query = "SELECT u.*, 
+                    (SELECT COUNT(*) FROM courses WHERE teacher_id = u.id_user) as course_count,
+                    (SELECT COUNT(*) FROM enrollments ce 
+                     JOIN courses c ON ce.course_id = c.id_courses
+                     WHERE c.teacher_id = u.id_user) as student_count
+                  FROM " . $this->table . " u 
+                  WHERE u.role = 'teacher'";  
+        
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+    
+    
+
+    public function updateStatus($userId, $status) {
+        $query = "UPDATE " . $this->table . " 
+                 SET status = :status 
+                 WHERE id_user = :id";
+        
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":status", $status);
+        $stmt->bindParam(":id", $userId);
+        return $stmt->execute();
+    }
+
+    public function deleteTeacher($userId) {
+        $query = "DELETE FROM " . $this->table . " 
+                 WHERE id_user = :id AND role = 'teacher'";
+        
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":id", $userId);
+        return $stmt->execute();
+    }
 }
 ?>

@@ -124,7 +124,7 @@
                         <h2 class="text-xl font-semibold text-gray-900">Gestion des cours</h2>
                     </div>
                     <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-                        <a href="#" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800">
+                        <a href="add_cours_teacher.php" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800">
                             Ajouter un cours
                         </a>
                     </div>

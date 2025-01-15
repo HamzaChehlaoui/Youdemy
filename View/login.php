@@ -54,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -120,11 +121,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <input type="password" name="password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-black">
                         </div>
                         <div class="flex items-center justify-between">
-                            <!-- <div class="flex items-center">
-                                <input type="checkbox" name="remember" class="h-4 w-4 border-gray-300 rounded">
-                                <label class="ml-2 text-sm text-gray-700">Se souvenir de moi</label>
-                            </div>
-                            <a href="#" class="text-sm text-black hover:underline">Mot de passe oublié ?</a> -->
                         </div>
                         <button type="submit" class="w-full bg-black mt-[1rem] text-white px-4 py-2 rounded-lg hover:bg-gray-800">
                             Se connecter
