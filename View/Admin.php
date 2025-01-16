@@ -1,5 +1,6 @@
 <?php 
-require_once "../Controller/teacher.php";
+// require_once "../Controller/Gere_gategory_tags.php";
+require_once "../Controller/Teacher.php";
 
 ?>
 <!DOCTYPE html>
@@ -49,7 +50,7 @@ require_once "../Controller/teacher.php";
         <!-- Dashboard Content -->
         <div class="max-w-7xl mx-auto px-4 py-8">
             <!-- Teacher Validation Section -->
-            <div id="users-tab" class="tab-content">
+        <!-- <div id="users-tab" class="tab-content">
                 <div class="mb-8">
                     <h2 class="text-2xl font-bold text-black mb-6">Validation des Enseignants</h2>
                     <div class="grid gap-6">
@@ -73,15 +74,15 @@ require_once "../Controller/teacher.php";
                                 </div>
                             </div>
                             <div class="flex space-x-2">
-                                <button onclick="handleAction('activate', <?php echo $row['id_user']; ?>)" 
+                                <button onclick="handleection('activate', <?php echo $row['id_user']; ?>)" 
                                         class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
                                     Activer
                                 </button>
-                                <button onclick="handleAction('suspend', <?php echo $row['id_user']; ?>)" 
+                                <button onclick="handleection('suspend', <?php echo $row['id_user']; ?>)" 
                                         class="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700">
                                     Suspendre
                                 </button>
-                                <button onclick="handleAction('delete', <?php echo $row['id_user']; ?>)" 
+                                <button onclick="handleection('delete', <?php echo $row['id_user']; ?>)" 
                                         class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
                                     Supprimer
                                 </button>
@@ -91,188 +92,69 @@ require_once "../Controller/teacher.php";
                 <?php } ?>
             </div>
                 </div>
-            </div>
+        </div> -->
+        <?php require('teacher.php') ;
+        
+            require('Content_Management.php');
+        ?>
 
             <!-- Content Management Section -->
-            <div id="content-tab" class="tab-content hidden">
-         
-    <div class="grid gap-6">
-        <!-- Tags and Categories Management -->
-        <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Category Management -->
-                <div>
-                    <h2 class="text-xl font-bold text-black mb-4">Gestion des Catégories</h2>
-                    <div class="mb-4">
-                        <input type="text" placeholder="Nouvelle catégorie" class="w-full px-3 py-2 border border-gray-300 rounded-md">
-                        <button class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                            Ajouter une catégorie
-                        </button>
-                    </div>
-                    <div class="space-y-2">
-                        <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
-                            <span>Développement</span>
-                            <div class="flex space-x-2">
-                                <button class="text-blue-600 hover:text-blue-800">Modifier</button>
-                                <button class="text-red-600 hover:text-red-800">Supprimer</button>
-                            </div>
-                        </div>
-                        <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
-                            <span>Design</span>
-                            <div class="flex space-x-2">
-                                <button class="text-blue-600 hover:text-blue-800">Modifier</button>
-                                <button class="text-red-600 hover:text-red-800">Supprimer</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tag Management -->
-                <div>
-                    <h2 class="text-xl font-bold text-black mb-4">Gestion des Tags</h2>
-                    <div class="mb-4">
-                        <input type="text" placeholder="Nouveau tag" class="w-full px-3 py-2 border border-gray-300 rounded-md">
-                        <button class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                            Ajouter un tag
-                        </button>
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        <div class="inline-flex items-center bg-gray-100 rounded-full px-3 py-1">
-                            <span>JavaScript</span>
-                            <button class="ml-2 text-red-600 hover:text-red-800">&times;</button>
-                        </div>
-                        <div class="inline-flex items-center bg-gray-100 rounded-full px-3 py-1">
-                            <span>HTML</span>
-                            <button class="ml-2 text-red-600 hover:text-red-800">&times;</button>
-                        </div>
-                        <div class="inline-flex items-center bg-gray-100 rounded-full px-3 py-1">
-                            <span>CSS</span>
-                            <button class="ml-2 text-red-600 hover:text-red-800">&times;</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Course Management (Updated with Tags) -->
-        <div class="bg-white rounded-lg shadow-lg p-6">
-            <h2 class="text-2xl font-bold text-black mb-6">Gestion des Cours</h2>
-            <div class="grid grid-cols-2 gap-4 mb-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Catégorie</label>
-                    <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-                        <option>Développement</option>
-                        <option>Design</option>
-                        <option>Business</option>
-                        <option>Marketing</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Filtrer par tag</label>
-                    <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-                        <option>Tous les tags</option>
-                        <option>JavaScript</option>
-                        <option>HTML</option>
-                        <option>CSS</option>
-                    </select>
-                </div>
-            </div>
-            <table class="min-w-full">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Titre</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Enseignant</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Catégorie</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tags</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Étudiants</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                    <tr>
-                        <td class="px-6 py-4">Développement Web Full-Stack</td>
-                        <td class="px-6 py-4">Marie Dupont</td>
-                        <td class="px-6 py-4">Développement</td>
-                        <td class="px-6 py-4">
-                            <div class="flex flex-wrap gap-1">
-                                <span class="inline-block bg-gray-100 rounded-full px-2 py-1 text-xs">HTML</span>
-                                <span class="inline-block bg-gray-100 rounded-full px-2 py-1 text-xs">CSS</span>
-                                <span class="inline-block bg-gray-100 rounded-full px-2 py-1 text-xs">JavaScript</span>
-                            </div>
-                        </td>
-                        <td class="px-6 py-4">89</td>
-                        <td class="px-6 py-4">
-                            <button class="text-blue-600 hover:text-blue-800">Modifier</button>
-                            <button class="text-red-600 hover:text-red-800 ml-4">Supprimer</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+       
     </div>
 </div>
             
 
             <!-- Statistics Section -->
             <div id="stats-tab" class="tab-content hidden">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Total Courses by Category -->
-                    <div class="bg-white rounded-lg shadow-lg p-6">
-                        <h3 class="text-lg font-semibold mb-4">Total des Cours par Catégorie</h3>
-                        <div class="space-y-4">
-                            <div class="flex justify-between">
-                                <span>Développement</span>
-                                <span class="font-bold">45</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span>Design</span>
-                                <span class="font-bold">32</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span>Business</span>
-                                <span class="font-bold">28</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span>Marketing</span>
-                                <span class="font-bold">21</span>
-                            </div>
-                        </div>
-                    </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Total Courses by Category -->
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h3 class="text-lg font-semibold mb-4">Total des Cours par Catégorie</h3>
+            <div class="space-y-4">
+                <?php foreach ($coursesByCategory as $category): ?>
+                <div class="flex justify-between">
+                    <span><?php echo htmlspecialchars($category['category_name']); ?></span>
+                    <span class="font-bold"><?php echo $category['course_count']; ?></span>
+                </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
 
-                    <!-- Top 3 Teachers -->
-                    <div class="bg-white rounded-lg shadow-lg p-6">
-                        <h3 class="text-lg font-semibold mb-4">Top 3 Enseignants</h3>
-                        <div class="space-y-4">
-                            <div class="flex justify-between">
-                                <span>Marie Dupont</span>
-                                <span class="font-bold">156 étudiants</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span>Sophie Laurent</span>
-                                <span class="font-bold">124 étudiants</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span>Pierre Martin</span>
-                                <span class="font-bold">89 étudiants</span>
-                            </div>
-                        </div>
-                    </div>
+        <!-- Top 3 Teachers -->
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h3 class="text-lg font-semibold mb-4">Top 3 Enseignants</h3>
+            <div class="space-y-4">
+                <?php foreach ($topTeachers as $teacher): ?>
+                <div class="flex justify-between">
+                    <span><?php echo htmlspecialchars($teacher['username']); ?></span>
+                    <span class="font-bold"><?php echo $teacher['student_count']; ?> étudiants</span>
+                </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
 
-                    <!-- Most Popular Course -->
-                    <div class="bg-white rounded-lg shadow-lg p-6">
-                        <h3 class="text-lg font-semibold mb-4">Cours le Plus Populaire</h3>
-                        <div class="space-y-2">
-                            <p class="font-bold">Développement Web Full-Stack</p>
-                            <p class="text-gray-600">Par Marie Dupont</p>
-                            <p class="text-green-600">89 étudiants inscrits</p>
-                            <div class="mt-4">
-                                <div class="h-2 bg-gray-200 rounded">
-                                    <div class="h-2 bg-green-600 rounded" style="width: 89%"></div>
-                                </div>
-                            </div>
-                        </div>
+        <!-- Most Popular Course -->
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h3 class="text-lg font-semibold mb-4">Cours le Plus Populaire</h3>
+            <?php if ($mostPopularCourse): ?>
+            <div class="space-y-2">
+                <p class="font-bold"><?php echo htmlspecialchars($mostPopularCourse['title']); ?></p>
+                <p class="text-gray-600">Par <?php echo htmlspecialchars($mostPopularCourse['teacher_name']); ?></p>
+                <p class="text-green-600"><?php echo $mostPopularCourse['student_count']; ?> étudiants inscrits</p>
+                <div class="mt-4">
+                    <div class="h-2 bg-gray-200 rounded">
+                        <?php 
+                        $percentage = ($mostPopularCourse['student_count'] / $mostPopularCourse['total_enrollments']) * 100;
+                        ?>
+                        <div class="h-2 bg-green-600 rounded" style="width: <?php echo $percentage; ?>%"></div>
                     </div>
                 </div>
+            </div>
+            <?php else: ?>
+            <p class="text-gray-600">Aucun cours disponible</p>
+            <?php endif; ?>
+        </div>
+    </div>
             </div>
         </div>
     </div>
@@ -297,25 +179,6 @@ require_once "../Controller/teacher.php";
             event.target.classList.remove('text-gray-500');
             event.target.classList.add('text-black', 'border-b-2', 'border-black');
         }
-        function handleAction(action, userId) {
-            fetch('', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    action: action,
-                    id: userId
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    location.reload();
-                }
-            });
-        }
-    
     </script>
 </body>
 </html>

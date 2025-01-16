@@ -1,4 +1,9 @@
 <?php
+
+    namespace Connection\database;
+    use PDO;
+    use PDOException;
+
 class Database {
     private $host = "localhost";
     private $db_name = "youdemy";

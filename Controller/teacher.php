@@ -1,29 +1,31 @@
 <?php
+use Connection\database\Database;
+use users\Admin;
 require_once "../Model/Database.php";
 require_once "../Model/User.php";
 
 $database = new Database();
 $db = $database->getConnection();
-$teacher = new Teacher($db);
+$teacher = new Admin($db);
 
+// Handle form submissions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $data = json_decode(file_get_contents('php://input'), true);
-    $response = ['success' => false];
-
-    switch($data['action']) {
+    $action = $_POST['action'] ?? '';
+    $userId = $_POST['user_id'] ?? '';
+    
+    switch($action) {
         case 'activate':
-            $response['success'] = $teacher->updateStatus($data['id'], 'active');
+            $teacher->updateStatus($userId, 'active');
             break;
         case 'suspend':
-            $response['success'] = $teacher->updateStatus($data['id'], 'suspended');
+            $teacher->updateStatus($userId, 'suspended');
             break;
         case 'delete':
-            $response['success'] = $teacher->deleteTeacher($data['id']);
+            $teacher->deleteTeacher($userId);
             break;
     }
-
-    header('Content-Type: application/json');
-    echo json_encode($response);
+    
+    // Redirect back to the same page to prevent form resubmission
+    header('Location: ' . $_SERVER['PHP_SELF']);
     exit;
 }
-?>
