@@ -1,5 +1,5 @@
 <?php 
-// require_once "../Controller/Gere_gategory_tags.php";
+require_once "../Controller/Gere_gategory_tags.php";
 require_once "../Controller/Teacher.php";
 
 ?>
@@ -56,7 +56,7 @@ require_once "../Controller/Teacher.php";
             require('Content_Management.php');
         ?>
 
-            <!-- Content Management Section -->
+          
        
     </div>
 </div>

@@ -33,6 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         switch ($_POST['action']) {
             case 'addTag':
                 if (!empty($_POST['name'])) {
+                    $tagManager->addTag($_POST['name']);
                     header('Location: ' . $_SERVER['PHP_SELF']);
                     exit;
                 }
@@ -40,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             case 'deleteTag':
                 if (!empty($_POST['id'])) {
+                    $tagManager->deleteTag($_POST['id']);
                     header('Location: ' . $_SERVER['PHP_SELF']);
                     exit;
                 }
@@ -47,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             case 'addCategory':
                 if (!empty($_POST['name'])) {
+                    $categoryManager->addCategory($_POST['name']);
                     header('Location: ' . $_SERVER['PHP_SELF']);
                     exit;
                 }
@@ -54,6 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             case 'deleteCategory':
                 if (!empty($_POST['id'])) {
+                    $categoryManager->deleteCategory($_POST['id']);
                     header('Location: ' . $_SERVER['PHP_SELF']);
                     exit;
                 }
@@ -61,6 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             case 'deleteCourse':
                 if (!empty($_POST['id'])) {
+                    $courseManager->deleteCourse($_POST['id']);
                     header('Location: ' . $_SERVER['PHP_SELF']);
                     exit;
                 }
@@ -68,6 +73,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-
-
 ?>
