@@ -1,4 +1,5 @@
 <?php 
+$jifji='dhg';
 require_once "../Controller/Gere_gategory_tags.php";
 
 $selectedCategory = $_GET['category_id'] ?? '';

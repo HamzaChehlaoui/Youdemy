@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 
                 $result = $user->login();
                 if ($result['success']) {
-                    header('Location: dashboard.php');
+                    header('Location: Course_Management_teacher.php');
                     exit;
                 } else {
                     $error = $result['message'];

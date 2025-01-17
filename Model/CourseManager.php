@@ -56,6 +56,100 @@ class CourseManager {
         $stmt = $this->conn->prepare($query);
         return $stmt->execute([':id' => $courseId]);
     }
+
+    public function addCourse(array $courseData) {
+        try {
+            $this->conn->beginTransaction();
+            
+            // Validate category exists
+            $categoryStmt = $this->conn->prepare("SELECT id_categories FROM categories WHERE id_categories = :category_id");
+            $categoryStmt->execute([':category_id' => $courseData['category']]);
+            if (!$categoryStmt->fetch()) {
+                throw new \Exception("Invalid category selected");
+            }
+            
+            // Insert course
+            $courseQuery = "INSERT INTO courses (
+                title, 
+                description, 
+                content_type, 
+                content_url, 
+                category_id, 
+                teacher_id,
+                status
+            ) VALUES (
+                :title,
+                :description,
+                :content_type,
+                :content_url,
+                :category_id,
+                :teacher_id,
+                'draft'
+               
+            )";
+            
+            $stmt = $this->conn->prepare($courseQuery);
+            $stmt->execute([
+                ':title' => $courseData['title'],
+                ':description' => $courseData['description'],
+                ':content_type' => $courseData['content_type'],
+                ':content_url' => $courseData['content'],
+                ':category_id' => $courseData['category'],
+                ':teacher_id' => $courseData['teacher_id']
+            ]);
+            
+            $courseId = $this->conn->lastInsertId();
+            
+            // Handle tags if provided
+            if (!empty($courseData['tags'])) {
+                $tags = array_map('trim', explode(',', $courseData['tags']));
+                
+                foreach ($tags as $tag) {
+                    if (empty($tag)) continue;
+                    
+                    // First try to find if tag exists
+                    $tagQuery = "SELECT id_tags FROM tags WHERE name = :name";
+                    $stmt = $this->conn->prepare($tagQuery);
+                    $stmt->execute([':name' => $tag]);
+                    $existingTag = $stmt->fetch(PDO::FETCH_ASSOC);
+                    
+                    // If tag doesn't exist, create it
+                    if (!$existingTag) {
+                        $createTagQuery = "INSERT INTO tags (name) VALUES (:name)";
+                        $stmt = $this->conn->prepare($createTagQuery);
+                        $stmt->execute([':name' => $tag]);
+                        $tagId = $this->conn->lastInsertId();
+                    } else {
+                        $tagId = $existingTag['id_tags'];
+                    }
+                    
+                    // Check if this course-tag relationship already exists
+                    $existingRelationQuery = "SELECT 1 FROM course_tags WHERE course_id = :course_id AND tag_id = :tag_id";
+                    $stmt = $this->conn->prepare($existingRelationQuery);
+                    $stmt->execute([
+                        ':course_id' => $courseId,
+                        ':tag_id' => $tagId
+                    ]);
+                    
+                    if (!$stmt->fetch()) {
+                        $courseTagQuery = "INSERT INTO course_tags (course_id, tag_id) VALUES (:course_id, :tag_id)";
+                        $stmt = $this->conn->prepare($courseTagQuery);
+                        $stmt->execute([
+                            ':course_id' => $courseId,
+                            ':tag_id' => $tagId
+                        ]);
+                    }
+                }
+            }
+            
+            $this->conn->commit();
+            return $courseId;
+            
+        } catch (\PDOException $e) {
+            $this->conn->rollBack();
+            throw $e;
+        }
+    }
 }
 
 ?>

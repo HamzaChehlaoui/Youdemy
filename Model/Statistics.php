@@ -24,13 +24,13 @@ class StatisticsManager {
         $query = "SELECT u.username, u.id_user,
                     COUNT(DISTINCT c.id_courses) as course_count,
                     COUNT(DISTINCT e.student_id) as student_count
-                 FROM users u
-                 JOIN courses c ON u.id_user = c.teacher_id
-                 LEFT JOIN enrollments e ON c.id_courses = e.course_id
-                 WHERE u.role = 'teacher'
-                 GROUP BY u.id_user, u.username
-                 ORDER BY student_count DESC
-                 LIMIT :limit";
+                FROM users u
+                JOIN courses c ON u.id_user = c.teacher_id
+                LEFT JOIN enrollments e ON c.id_courses = e.course_id
+                WHERE u.role = 'teacher'
+                GROUP BY u.id_user, u.username
+                ORDER BY student_count DESC
+                LIMIT :limit";
         
         $stmt = $this->conn->prepare($query);
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
