@@ -61,7 +61,7 @@ require_once "../Controller/Teacher.php";
     
     </div>
 </div>
-            
+
 
             <!-- Statistics Section -->
             <div id="stats-tab" class="tab-content hidden">
@@ -111,7 +111,7 @@ require_once "../Controller/Teacher.php";
             </div>
             <?php else: ?>
             <p class="text-gray-600">Aucun cours disponible</p>
-            <?php endif; ?>
+            <?php endif;?>
         </div>
     </div>
             </div>

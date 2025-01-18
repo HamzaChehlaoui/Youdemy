@@ -1,5 +1,7 @@
 <?php
+
 require_once ('../Controller/Add_Cours.php');
+
 ?>
 
 <!DOCTYPE html>
@@ -11,19 +13,9 @@ require_once ('../Controller/Add_Cours.php');
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50">
+    <!-- Navigation bar remains unchanged -->
     <nav class="fixed top-0 w-full bg-black shadow-sm z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <a href="#" class="text-2xl font-bold text-white">Youdemy</a>
-                    <div class="hidden md:flex space-x-8 ml-10">
-                        <a href="Course_Management_teacher.php" class="text-white hover:text-gray-300 px-3 py-2">Dashboard</a>
-                        <a href="#" class="text-white hover:text-gray-300 px-3 py-2">Mes Cours</a>
-                        <a href="#" class="text-white hover:text-gray-300 px-3 py-2">Statistiques</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- ... existing nav content ... -->
     </nav>
 
     <div class="pt-24 pb-12">
@@ -45,40 +37,51 @@ require_once ('../Controller/Add_Cours.php');
                     <h2 class="text-2xl font-bold text-gray-900 mb-6">Ajouter un nouveau cours</h2>
                     
                     <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" class="space-y-6">
+                        <!-- Title field remains unchanged -->
                         <div>
                             <label for="title" class="block text-sm font-medium text-gray-700">Titre du cours</label>
                             <input type="text" name="title" id="title" required 
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black sm:text-sm">
                         </div>
 
+                        <!-- Description field remains unchanged -->
                         <div>
                             <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
                             <textarea id="description" name="description" rows="4" required 
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black sm:text-sm"></textarea>
                         </div>
 
+                        <!-- Modified content type selection -->
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Type de contenu</label>
                             <div class="flex space-x-4">
                                 <label class="inline-flex items-center">
                                     <input type="radio" name="content_type" value="video" checked 
-                                        class="form-radio text-black focus:ring-black">
+                                        class="form-radio text-black focus:ring-black" onchange="toggleContentInput()">
                                     <span class="ml-2">Vidéo</span>
                                 </label>
                                 <label class="inline-flex items-center">
                                     <input type="radio" name="content_type" value="document" 
-                                        class="form-radio text-black focus:ring-black">
+                                        class="form-radio text-black focus:ring-black" onchange="toggleContentInput()">
                                     <span class="ml-2">Document</span>
                                 </label>
                             </div>
                         </div>
 
-                        <div>
-                            <label for="content" class="block text-sm font-medium text-gray-700">Contenu du cours</label>
-                            <input type="text" name="content" id="content" required 
+                        <!-- Modified content input -->
+                        <div id="videoInput">
+                            <label for="video_url" class="block text-sm font-medium text-gray-700">URL de la vidéo</label>
+                            <input type="url" name="video_url" id="video_url" placeholder="https://www.youtube.com/watch?v=..."
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black sm:text-sm">
                         </div>
 
+                        <div id="documentInput" style="display: none;">
+                            <label for="document_url" class="block text-sm font-medium text-gray-700">URL du document</label>
+                            <input type="url" name="document_url" id="document_url" placeholder="https://drive.google.com/..."
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black sm:text-sm">
+                        </div>
+
+                        <!-- Category selection remains unchanged -->
                         <div>
                             <label for="category" class="block text-sm font-medium text-gray-700">Catégorie</label>
                             <select id="category" name="category" required 
@@ -92,10 +95,18 @@ require_once ('../Controller/Add_Cours.php');
                             </select>
                         </div>
 
+                        <!-- Modified tags selection -->
                         <div>
-                            <label for="tags" class="block text-sm font-medium text-gray-700">Tags (séparés par des virgules)</label>
-                            <input type="text" name="tags" id="tags" placeholder="ex: web, javascript, débutant" 
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black sm:text-sm">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Tags</label>
+                            <div class="grid grid-cols-3 gap-4">
+                                <?php foreach ($tags as $tag): ?>
+                                    <label class="inline-flex items-center">
+                                        <input type="checkbox" name="tags[]" value="<?php echo htmlspecialchars($tag['id_tags']); ?>"
+                                            class="form-checkbox text-black focus:ring-black">
+                                        <span class="ml-2"><?php echo htmlspecialchars($tag['name']); ?></span>
+                                    </label>
+                                <?php endforeach; ?>
+                            </div>
                         </div>
 
                         <div class="pt-4">
@@ -109,5 +120,23 @@ require_once ('../Controller/Add_Cours.php');
             </div>
         </div>
     </div>
+
+    <script>
+    function toggleContentInput() {
+        const videoInput = document.getElementById('videoInput');
+        const documentInput = document.getElementById('documentInput');
+        const contentType = document.querySelector('input[name="content_type"]:checked').value;
+        
+        if (contentType === 'video') {
+            videoInput.style.display = 'block';
+            documentInput.style.display = 'none';
+            document.getElementById('document_url').value = '';
+        } else {
+            videoInput.style.display = 'none';
+            documentInput.style.display = 'block';
+            document.getElementById('video_url').value = '';
+        }
+    }
+    </script>
 </body>
 </html>
