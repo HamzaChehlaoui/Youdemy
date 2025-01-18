@@ -68,14 +68,14 @@
                     <p class="text-gray-600 mb-4">Maîtrisez HTML, CSS, JavaScript, PHP et MySQL pour devenir développeur full-stack</p>
                     <div class="flex items-center mb-4">
                         <div class="flex text-yellow-400">★★★★☆</div>
-                        <span class="ml-2 text-gray-600">4.8 (256 avis)</span>
+                        
                     </div>
                     <div class="flex items-center mb-4">
                         <img src="/api/placeholder/40/40" alt="Instructor" class="w-8 h-8 rounded-full">
                         <span class="ml-2 text-gray-700">Par John Doe</span>
                     </div>
                     <div class="flex justify-between items-center">
-                        <span class="text-2xl font-bold">49.99 €</span>
+                        
                         <button class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800">
                             Voir le cours
                         </button>
@@ -94,14 +94,14 @@
                     <p class="text-gray-600 mb-4">Créez des interfaces utilisateur modernes et intuitives</p>
                     <div class="flex items-center mb-4">
                         <div class="flex text-yellow-400">★★★★★</div>
-                        <span class="ml-2 text-gray-600">4.9 (189 avis)</span>
+                        
                     </div>
                     <div class="flex items-center mb-4">
                         <img src="/api/placeholder/40/40" alt="Instructor" class="w-8 h-8 rounded-full">
                         <span class="ml-2 text-gray-700">Par Marie Martin</span>
                     </div>
                     <div class="flex justify-between items-center">
-                        <span class="text-2xl font-bold">44.99 €</span>
+                        
                         <button class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800">
                             Voir le cours
                         </button>
@@ -120,14 +120,14 @@
                     <p class="text-gray-600 mb-4">Apprenez les techniques avancées de machine learning avec Python et TensorFlow</p>
                     <div class="flex items-center mb-4">
                         <div class="flex text-yellow-400">★★★★☆</div>
-                        <span class="ml-2 text-gray-600">4.7 (320 avis)</span>
+                        
                     </div>
                     <div class="flex items-center mb-4">
                         <img src="/api/placeholder/40/40" alt="Instructor" class="w-8 h-8 rounded-full">
                         <span class="ml-2 text-gray-700">Par Sarah Smith</span>
                     </div>
                     <div class="flex justify-between items-center">
-                        <span class="text-2xl font-bold">59.99 €</span>
+                        
                         <button class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800">
                             Voir le cours
                         </button>
