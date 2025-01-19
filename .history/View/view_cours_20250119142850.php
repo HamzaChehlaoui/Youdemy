@@ -165,8 +165,8 @@ require_once('../Controller/Show_cours.php');
                                 </div>
                             <?php endif; ?>
                             
-                             <div class="flex items-center mb-4">
-                                 <img src="/api/placeholder/40/40" alt="Instructor" class="w-8 h-8 rounded-full">
+                            <div class="flex items-center mb-4">
+                                <img src="/api/placeholder/40/40" alt="Instructor" class="w-8 h-8 rounded-full">
                                 <span class="ml-2 text-gray-700">
                                     Par <?= htmlspecialchars($course['teacher_name']) ?>
                                 </span>
