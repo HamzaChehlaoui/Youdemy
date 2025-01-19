@@ -1,23 +1,5 @@
 <?php
-use Connection\database\Database;
-use Categorymanager\CategoryManager;
-use Coursemanager\CourseManager;
-require_once('../Model/Database.php');
-require_once('../Model/CategoryManager.php');
-require_once('../Model/CourseManager.php');
-
-    $database = new Database();
-    $db = $database->getConnection();
-
-// Get filter parameters
-$categoryId = $_GET['category'] ?? null;
-$searchQuery = $_GET['search'] ?? '';
-$Categorymanager= new CategoryManager($db);
-$categories=$Categorymanager->getAllCategories();
-
-// Get categories and courses
-$coursess = new CourseManager($db);
-$courses =$coursess->getCoursesandsearch($db,$categoryId, $searchQuery);
+require_once('../Controller/Show_cours.php');
 ?>
 
 <!DOCTYPE html>
@@ -208,15 +190,45 @@ $courses =$coursess->getCoursesandsearch($db,$categoryId, $searchQuery);
     </div>
 
     <!-- Pagination -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+   <!-- Pagination -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <?php if ($totalPages > 1): ?>
         <div class="flex justify-center space-x-2">
-            <button class="px-4 py-2 border rounded-lg hover:bg-gray-100">Précédent</button>
-            <button class="px-4 py-2 bg-black text-white rounded-lg">1</button>
-            <button class="px-4 py-2 border rounded-lg hover:bg-gray-100">2</button>
-            <button class="px-4 py-2 border rounded-lg hover:bg-gray-100">3</button>
-            <button class="px-4 py-2 border rounded-lg hover:bg-gray-100">Suivant</button>
+            <?php if ($currentPage > 1): ?>
+                <a href="?page=<?= $currentPage - 1 ?><?= $categoryId ? '&category=' . $categoryId : '' ?><?= $searchQuery ? '&search=' . urlencode($searchQuery) : '' ?>" 
+                   class="px-4 py-2 border rounded-lg hover:bg-gray-100">
+                    Précédent
+                </a>
+            <?php endif; ?>
+            
+            <?php
+            $startPage = max(1, $currentPage - 2);
+            $endPage = min($totalPages, $startPage + 4);
+            if ($endPage - $startPage < 4) {
+                $startPage = max(1, $endPage - 4);
+            }
+            
+            for ($i = $startPage; $i <= $endPage; $i++):
+            ?>
+                <a href="?page=<?= $i ?><?= $categoryId ? '&category=' . $categoryId : '' ?><?= $searchQuery ? '&search=' . urlencode($searchQuery) : '' ?>"
+                   class="px-4 py-2 <?= $i === $currentPage ? 'bg-black text-white' : 'border hover:bg-gray-100' ?> rounded-lg">
+                    <?= $i ?>
+                </a>
+            <?php endfor; ?>
+            
+            <?php if ($currentPage < $totalPages): ?>
+                <a href="?page=<?= $currentPage + 1 ?><?= $categoryId ? '&category=' . $categoryId : '' ?><?= $searchQuery ? '&search=' . urlencode($searchQuery) : '' ?>" 
+                   class="px-4 py-2 border rounded-lg hover:bg-gray-100">
+                    Suivant
+                </a>
+            <?php endif; ?>
         </div>
-    </div>
+        
+        <div class="text-center mt-4 text-gray-600">
+            Page <?= $currentPage ?> sur <?= $totalPages ?>
+        </div>
+    <?php endif; ?>
+</div>
 
     <!-- Footer -->
     <footer class="bg-black text-white py-8">

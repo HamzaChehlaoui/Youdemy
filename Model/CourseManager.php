@@ -151,54 +151,81 @@ class CourseManager {
             throw $e;
         }
     }
-    function getCoursesandsearch($db, $categoryId = null, $searchQuery = '') {
-        try {
-            $query = "SELECT c.*, 
-                            u.username as teacher_name,
-                            cat.name as category_name,
-                            (SELECT COUNT(*) FROM enrollments e WHERE e.course_id = c.id_courses) as enrollment_count
-                     FROM courses c
-                     JOIN users u ON c.teacher_id = u.id_user
-                     JOIN categories cat ON c.category_id = cat.id_categories
-                     WHERE c.status = 'published'";
-            
-            $params = [];
-            
-            if ($categoryId) {
-                $query .= " AND c.category_id = :category_id";
-                $params[':category_id'] = $categoryId;
-            }
-            
-            if ($searchQuery) {
-                $query .= " AND (c.title LIKE :search OR c.description LIKE :search)";
-                $params[':search'] = "%$searchQuery%";
-            }
-            
-            $query .= " ORDER BY c.title";
-            
-            $stmt = $db->prepare($query);
-            $stmt->execute($params);
-            $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            
-            if (!empty($courses)) {
-                // Get tags for each course
-                foreach ($courses as &$course) {
-                    $tagQuery = "SELECT t.* 
-                                FROM tags t
-                                JOIN course_tags ct ON t.id_tags = ct.tag_id
-                                WHERE ct.course_id = :course_id";
-                    $tagStmt = $db->prepare($tagQuery);
-                    $tagStmt->execute([':course_id' => $course['id_courses']]);
-                    $course['tags'] = $tagStmt->fetchAll(PDO::FETCH_ASSOC);
-                }
-            }
-            
-            return $courses;
-        } catch (PDOException $e) {
-            
-            return [];
+    public function getCoursesWithPagination($categoryId = null, $searchQuery = '', $page = 1, $itemsPerPage = 3) {
+        // Calculate the offset
+        $offset = ($page - 1) * $itemsPerPage;
+        
+        // Base query
+        $query = "SELECT c.*, cat.name as category_name, u.username as teacher_name,
+                 (SELECT COUNT(*) FROM enrollments e WHERE e.course_id = c.id_courses) as enrollment_count
+                 FROM courses c
+                 LEFT JOIN categories cat ON c.category_id = cat.id_categories
+                 LEFT JOIN users u ON c.teacher_id = u.id_user
+                 WHERE 1=1";
+        
+        // Add category filter
+        if ($categoryId) {
+            $query .= " AND c.category_id = :categoryId";
         }
+        
+        // Add search filter
+        if ($searchQuery) {
+            $query .= " AND (c.title LIKE :searchQuery OR c.description LIKE :searchQuery)";
+        }
+        
+        // Add pagination
+        $query .= " LIMIT :offset, :itemsPerPage";
+        
+        // Prepare and execute the query
+        $stmt = $this->conn->prepare($query);
+        
+        if ($categoryId) {
+            $stmt->bindParam(':categoryId', $categoryId, PDO::PARAM_INT);
+        }
+        
+        if ($searchQuery) {
+            $searchParam = "%$searchQuery%";
+            $stmt->bindParam(':searchQuery', $searchParam, PDO::PARAM_STR);
+        }
+        
+        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $stmt->bindParam(':itemsPerPage', $itemsPerPage, PDO::PARAM_INT);
+        
+        $stmt->execute();
+        $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        // Get total count for pagination
+        $countQuery = "SELECT COUNT(*) FROM courses c WHERE 1=1";
+        if ($categoryId) {
+            $countQuery .= " AND c.category_id = :categoryId";
+        }
+        if ($searchQuery) {
+            $countQuery .= " AND (c.title LIKE :searchQuery OR c.description LIKE :searchQuery)";
+        }
+        
+        $stmtCount = $this->conn->prepare($countQuery);
+        
+        if ($categoryId) {
+            $stmtCount->bindParam(':categoryId', $categoryId, PDO::PARAM_INT);
+        }
+        if ($searchQuery) {
+            $stmtCount->bindParam(':searchQuery', $searchParam, PDO::PARAM_STR);
+        }
+        
+        $stmtCount->execute();
+        $totalItems = $stmtCount->fetchColumn();
+        $totalPages = ceil($totalItems / $itemsPerPage);
+        
+        return [
+            'courses' => $courses,
+            'totalPages' => $totalPages,
+            'currentPage' => $page,
+            'itemsPerPage' => $itemsPerPage,
+            'totalItems' => $totalItems
+        ];
     }
+
+
 }
 
 ?>
