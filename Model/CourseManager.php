@@ -1,6 +1,35 @@
 <?php 
 namespace Coursemanager;
 use PDO;
+
+abstract class Course {
+    public $title;
+    public $description;
+    public $content_type;
+    public $content_url;
+    
+    public function __construct($title, $description, $content_type, $content_url) {
+        $this->title = $title;
+        $this->description = $description;
+        $this->content_type = $content_type;
+        $this->content_url = $content_url;
+    }
+
+    abstract public function getContentDetails();
+}
+
+class VideoCourse extends Course {
+    public function getContentDetails() {
+        return "Video URL: " . $this->content_url;
+    }
+}
+
+class DocumentCourse extends Course {
+    public function getContentDetails() {
+        return "Document URL: " . $this->content_url;
+    }
+}
+
 class CourseManager {
     private $conn;
     
@@ -68,7 +97,27 @@ class CourseManager {
                 throw new \Exception("Invalid category selected");
             }
             
-            // Insert course
+            // Instantiate the appropriate course object based on content type
+            if ($courseData['content_type'] === 'video') {
+                $course = new VideoCourse(
+                  $courseData['title'], 
+                  $courseData['description'], 
+                  $courseData['content_type'], 
+                  $courseData['content']
+                );
+            } else {
+                $course = new DocumentCourse(
+                  $courseData['title'], 
+                  $courseData['description'], 
+                  $courseData['content_type'], 
+                  $courseData['content']
+                );
+            }
+            
+            // Use the course object to get content details
+            $contentDetails = $course->getContentDetails();
+
+            // Insert course into database with these details
             $courseQuery = "INSERT INTO courses (
                 title, 
                 description, 
@@ -85,7 +134,6 @@ class CourseManager {
                 :category_id,
                 :teacher_id,
                 'published'
-               
             )";
             
             $stmt = $this->conn->prepare($courseQuery);
@@ -93,7 +141,7 @@ class CourseManager {
                 ':title' => $courseData['title'],
                 ':description' => $courseData['description'],
                 ':content_type' => $courseData['content_type'],
-                ':content_url' => $courseData['content'],
+                ':content_url' => $contentDetails,
                 ':category_id' => $courseData['category'],
                 ':teacher_id' => $courseData['teacher_id']
             ]);
@@ -150,10 +198,12 @@ class CourseManager {
             throw $e;
         }
     }
+
     public function getCoursesWithPagination($categoryId = null, $searchQuery = '', $page = 1, $itemsPerPage = 3) {
         // Calculate the offset
         $offset = ($page - 1) * $itemsPerPage;
         
+        // Base query
         $query = "SELECT c.*, cat.name as category_name, u.username as teacher_name,
                  (SELECT COUNT(*) FROM enrollments e WHERE e.course_id = c.id_courses) as enrollment_count
                  FROM courses c
@@ -174,6 +224,7 @@ class CourseManager {
         // Add pagination
         $query .= " LIMIT :offset, :itemsPerPage";
         
+        // Prepare and execute the query
         $stmt = $this->conn->prepare($query);
         
         if ($categoryId) {
@@ -223,6 +274,6 @@ class CourseManager {
     }
 
 
+    
 }
-
 ?>
