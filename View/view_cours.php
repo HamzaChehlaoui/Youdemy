@@ -123,9 +123,8 @@ require_once('../Controller/Show_cours.php');
                     <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform hover:scale-105">
                         <?php if ($course['content_type'] === 'video'): ?>
                             <div class="aspect-w-16 aspect-h-9 bg-gray-100">
-                                <video class="w-full h-48 object-cover" poster="/api/placeholder/600/300">
-                                    <source src="<?= htmlspecialchars($course['content_url']) ?>" type="video/mp4">
-                                </video>
+                                <img class="w-full h-48 object-cover" src="https://static.vecteezy.com/ti/gratis-vector/p2/6647166-camera-pictogram-logo-fotografie-pictogrammen-set-beveiliging-camera-pictogram-foto-en-video-pictogram-gratis-vector.jpg">
+                        </img>
                             </div>
                         <?php else: ?>
                             <div class="w-full h-48 bg-gray-100 flex items-center justify-center">
