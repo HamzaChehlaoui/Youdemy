@@ -124,7 +124,7 @@ require_once('../Controller/Show_cours.php');
                         <?php if ($course['content_type'] === 'video'): ?>
                             <div class="aspect-w-16 aspect-h-9 bg-gray-100">
                                 <img class="w-full h-48 object-cover" src="https://static.vecteezy.com/ti/gratis-vector/p2/6647166-camera-pictogram-logo-fotografie-pictogrammen-set-beveiliging-camera-pictogram-foto-en-video-pictogram-gratis-vector.jpg">
-                        </img>
+                         </img>
                             </div>
                         <?php else: ?>
                             <div class="w-full h-48 bg-gray-100 flex items-center justify-center">
