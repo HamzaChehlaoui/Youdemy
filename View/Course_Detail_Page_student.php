@@ -1,6 +1,8 @@
 <?php
 
 require_once('../Controller/Detail_cours.php');
+$courseId = isset($_GET['id']) ? intval($_GET['id']) : 0;
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -66,11 +68,13 @@ require_once('../Controller/Detail_cours.php');
                 
                 <div class="bg-white p-6 rounded-lg shadow-lg">
                     <div class="aspect-w-16 aspect-h-9">
-                        <img src="../img/Black Grey Minimalist Book Club Logo.png" alt="Course Image" class="w-full h-[250px] object-cover rounded-lg shadow">
+                        <img src="../img/Black Grey Minimalist Book Club Logo_LE_upscale_digital_art_x4.jpg" alt="Course Image" class="w-full h-[250px] object-cover rounded-lg shadow">
                     </div>
-                    <button class="w-full bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 mt-6">
-                        Inscrivez-vous au cours
-                    </button>
+                    <a href="test.php?id=<?= $courseId?>">
+                        <button class="w-full bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 mt-6">
+                            Inscrivez-vous au cours
+                        </button>
+                    </a>
                     
                     <div class="space-y-4 text-gray-700 mt-6">
                         <div class="flex items-center">
