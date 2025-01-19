@@ -1,6 +1,7 @@
 <?php 
 namespace Coursemanager;
 use PDO;
+use PDOException;
 class CourseManager {
     private $conn;
     
@@ -84,7 +85,7 @@ class CourseManager {
                 :content_url,
                 :category_id,
                 :teacher_id,
-                'draft'
+                'published'
                
             )";
             
@@ -148,6 +149,54 @@ class CourseManager {
         } catch (\PDOException $e) {
             $this->conn->rollBack();
             throw $e;
+        }
+    }
+    function getCoursesandsearch($db, $categoryId = null, $searchQuery = '') {
+        try {
+            $query = "SELECT c.*, 
+                            u.username as teacher_name,
+                            cat.name as category_name,
+                            (SELECT COUNT(*) FROM enrollments e WHERE e.course_id = c.id_courses) as enrollment_count
+                     FROM courses c
+                     JOIN users u ON c.teacher_id = u.id_user
+                     JOIN categories cat ON c.category_id = cat.id_categories
+                     WHERE c.status = 'published'";
+            
+            $params = [];
+            
+            if ($categoryId) {
+                $query .= " AND c.category_id = :category_id";
+                $params[':category_id'] = $categoryId;
+            }
+            
+            if ($searchQuery) {
+                $query .= " AND (c.title LIKE :search OR c.description LIKE :search)";
+                $params[':search'] = "%$searchQuery%";
+            }
+            
+            $query .= " ORDER BY c.title";
+            
+            $stmt = $db->prepare($query);
+            $stmt->execute($params);
+            $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            if (!empty($courses)) {
+                // Get tags for each course
+                foreach ($courses as &$course) {
+                    $tagQuery = "SELECT t.* 
+                                FROM tags t
+                                JOIN course_tags ct ON t.id_tags = ct.tag_id
+                                WHERE ct.course_id = :course_id";
+                    $tagStmt = $db->prepare($tagQuery);
+                    $tagStmt->execute([':course_id' => $course['id_courses']]);
+                    $course['tags'] = $tagStmt->fetchAll(PDO::FETCH_ASSOC);
+                }
+            }
+            
+            return $courses;
+        } catch (PDOException $e) {
+            
+            return [];
         }
     }
 }
