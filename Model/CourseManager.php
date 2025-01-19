@@ -1,7 +1,6 @@
 <?php 
 namespace Coursemanager;
 use PDO;
-use PDOException;
 class CourseManager {
     private $conn;
     
@@ -155,7 +154,6 @@ class CourseManager {
         // Calculate the offset
         $offset = ($page - 1) * $itemsPerPage;
         
-        // Base query
         $query = "SELECT c.*, cat.name as category_name, u.username as teacher_name,
                  (SELECT COUNT(*) FROM enrollments e WHERE e.course_id = c.id_courses) as enrollment_count
                  FROM courses c
@@ -176,7 +174,6 @@ class CourseManager {
         // Add pagination
         $query .= " LIMIT :offset, :itemsPerPage";
         
-        // Prepare and execute the query
         $stmt = $this->conn->prepare($query);
         
         if ($categoryId) {
