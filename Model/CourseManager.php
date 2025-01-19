@@ -198,7 +198,20 @@ class CourseManager {
             throw $e;
         }
     }
-
+    public function getCourseDetails($id) {
+        $query = "SELECT c.*, u.username as teacher_name, cat.name as category_name 
+                  FROM courses c
+                  LEFT JOIN users u ON c.teacher_id = u.id_user
+                  LEFT JOIN categories cat ON c.category_id = cat.id_categories
+                  WHERE c.id_courses = ? AND c.status = 'published'";
+    
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $id);
+        $stmt->execute();
+    
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    
     public function getCoursesWithPagination($categoryId = null, $searchQuery = '', $page = 1, $itemsPerPage = 3) {
         // Calculate the offset
         $offset = ($page - 1) * $itemsPerPage;

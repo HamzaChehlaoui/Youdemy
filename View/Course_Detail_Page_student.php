@@ -51,7 +51,6 @@
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-lg">
                     <img src="/api/placeholder/600/300" alt="Course Preview" class="w-full rounded-lg mb-6">
-                    <div class="text-3xl font-bold mb-6">49.99 €</div>
                     <button class="w-full bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 mb-4">
                         S'inscrire au cours
                     </button>
