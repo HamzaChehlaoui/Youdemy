@@ -49,7 +49,7 @@ require_once('../Controller/Detail_cours.php');
                     </p>
                     
                     <div class="flex items-center mb-4">
-                        <img src="/api/placeholder/40/40" alt="Instructor" class="w-10 h-10 rounded-full">
+                        <img src="../img/teacher.jpg" alt="Instructor" class="w-10 h-10 rounded-full">
                         <span class="ml-2 text-gray-700">Par <?= htmlspecialchars($courseDetails['teacher_name']) ?></span>
                     </div>
                     
@@ -136,7 +136,7 @@ require_once('../Controller/Detail_cours.php');
                 <div class="bg-white p-6 rounded-lg shadow-lg">
                     <h2 class="text-xl font-bold mb-4">À propos de l'instructeur</h2>
                     <div class="flex items-center mb-4">
-                        <img src="/api/placeholder/80/80" alt="Instructor" class="w-20 h-20 rounded-full">
+                        <img src="../img/teacher.jpg" alt="Instructor" class="w-20 h-20 rounded-full">
                         <div class="ml-4">
                             <h3 class="font-semibold"><?= htmlspecialchars($courseDetails['teacher_name']) ?></h3>
                             <p class="text-gray-600"><?= htmlspecialchars($courseDetails['teacher_biography'] ?? '') ?></p>
