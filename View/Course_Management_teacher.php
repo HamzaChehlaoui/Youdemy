@@ -73,47 +73,7 @@
                         </div>
                     </div>
 
-                    <!-- Total Revenue -->
-                    <div class="bg-white overflow-hidden shadow rounded-lg">
-                        <div class="p-5">
-                            <div class="flex items-center">
-                                <div class="flex-shrink-0">
-                                    <div class="h-12 w-12 bg-black rounded-full flex items-center justify-center">
-                                        <span class="text-white">💶</span>
-                                    </div>
-                                </div>
-                                <div class="ml-5">
-                                    <div class="text-sm font-medium text-gray-500">
-                                        Revenu Total
-                                    </div>
-                                    <div class="text-2xl font-semibold text-gray-900">
-                                        15,678 €
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Average Rating -->
-                    <div class="bg-white overflow-hidden shadow rounded-lg">
-                        <div class="p-5">
-                            <div class="flex items-center">
-                                <div class="flex-shrink-0">
-                                    <div class="h-12 w-12 bg-black rounded-full flex items-center justify-center">
-                                        <span class="text-white">⭐</span>
-                                    </div>
-                                </div>
-                                <div class="ml-5">
-                                    <div class="text-sm font-medium text-gray-500">
-                                        Note Moyenne
-                                    </div>
-                                    <div class="text-2xl font-semibold text-gray-900">
-                                        4.8/5
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                
                 </div>
             </div>
 
@@ -133,4 +93,57 @@
                 <!-- Course Table -->
                 <div class="mt-8 flex flex-col">
                     <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                        <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8
+                        <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                                               
+                            <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+                                <table class="min-w-full divide-y divide-gray-300">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th scope="col" class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Nom du Cours</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Date de Création</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Nombre d'Étudiants</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200">
+                                        <!-- Sample Course Row 1 -->
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Développement Web</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">12 janvier 2025</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">150</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                <a href="#" class="text-indigo-600 hover:text-indigo-900">Modifier</a>
+                                                <span class="mx-2">|</span>
+                                                <a href="#" class="text-red-600 hover:text-red-900">Supprimer</a>
+                                            </td>
+                                        </tr>
+                                        <!-- Sample Course Row 2 -->
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Marketing Digital</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">5 décembre 2024</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">75</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                <a href="#" class="text-indigo-600 hover:text-indigo-900">Modifier</a>
+                                                <span class="mx-2">|</span>
+                                                <a href="#" class="text-red-600 hover:text-red-900">Supprimer</a>
+                                            </td>
+                                        </tr>
+                                        <!-- Add more courses as needed -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white text-center py-4 mt-12">
+        <p>&copy; 2025 Youdemy. Tous droits réservés.</p>
+    </footer>
+
+</body>
+</html>

@@ -80,4 +80,23 @@
                     <div class="flex justify-between items-center">
                         <span class="text-sm text-gray-500">Demande envoyée le 12/01/2024</span>
                         <button class="text-black hover:underline">Voir le statut</button>
-                    </div
+                    </div>
+                </div>
+            </div>
+
+            <!-- Completed Course Card -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <img src="/api/placeholder/400/200" alt="Course" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold text-black mb-2">Introduction à Python</h3>
+                    <p class="text-gray-600 mb-4">Cours terminé</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-500">Terminé le 15/12/2024</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

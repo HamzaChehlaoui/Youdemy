@@ -89,9 +89,4 @@ class EnrollmentManager
     }
 }
 
-// $enrollmentManager = new EnrollmentManager();
-// $enrollmentManager->checkUserLogin();
-// $enrollmentManager->checkCourseId();
-// $enrollmentManager->handleFormSubmission();
-
 ?>

@@ -170,4 +170,55 @@
             return $stmt->execute();
         }
     }
+    class Student extends User{
+       
+    
+        public function __construct($db) {
+            parent::__construct($db);
+        }
+    
+        // Function to get student's courses based on status
+        public function getCourses($studentId, $status = null) {
+            $query = "
+                SELECT 
+                    c.id_courses,
+                    c.title,
+                    c.content_url,
+                    e.status as enrollment_status,
+                    e.enrollment_date,
+                    cat.name as category_name,
+                    u.username as teacher_name
+                FROM enrollments e
+                JOIN courses c ON e.course_id = c.id_courses
+                JOIN categories cat ON c.category_id = cat.id_categories
+                JOIN users u ON c.teacher_id = u.id_user
+                WHERE e.student_id = :student_id
+            ";
+            
+            if ($status) {
+                $query .= " AND e.status = :status";
+            }
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':student_id', $studentId, PDO::PARAM_INT);
+            if ($status) {
+                $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+            }
+            
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+    
+        // Get courses based on their status
+        public function getActiveCourses($studentId) {
+            return $this->getCourses($studentId, 'active');
+        }
+    
+        public function getCompletedCourses($studentId) {
+            return $this->getCourses($studentId, 'completed');
+        }
+    
+        public function getPendingCourses($studentId) {
+            return $this->getCourses($studentId, 'pending');
+        }
+    }
     ?>

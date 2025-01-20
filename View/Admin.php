@@ -52,7 +52,7 @@ require_once "../Controller/Teacher.php";
         <div class="max-w-7xl mx-auto px-4 py-8">
             <!-- Teacher Validation Section -->
     
-        <?php require('teacher.php') ;
+        <?php require('teacher.php');
         
             require('Content_Management.php');
         ?>
@@ -103,7 +103,7 @@ require_once "../Controller/Teacher.php";
                 <div class="mt-4">
                     <div class="h-2 bg-gray-200 rounded">
                         <?php 
-                        // $percentage = ($mostPopularCourse['student_count'] / $mostPopularCourse['total_enrollments']) * 100;
+                        $percentage = ($mostPopularCourse['student_count'] / $mostPopularCourse['total_enrollments']) * 100;
                         ?>
                         <div class="h-2 bg-green-600 rounded" style="width: <?php echo $percentage; ?>%"></div>
                     </div>
