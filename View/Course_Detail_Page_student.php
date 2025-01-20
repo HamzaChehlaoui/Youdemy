@@ -47,7 +47,7 @@ $courseId = isset($_GET['id']) ? intval($_GET['id']) : 0;
                         <?= htmlspecialchars($courseDetails['title']) ?>
                     </h1>
                     <p class="text-xl text-gray-600 mb-6">
-                        <?= htmlspecialchars($courseDetails['description']) ?>
+                        <?= htmlspecialchars($courseDetails['description'])?>
                     </p>
                     
                     <div class="flex items-center mb-4">
@@ -70,7 +70,7 @@ $courseId = isset($_GET['id']) ? intval($_GET['id']) : 0;
                     <div class="aspect-w-16 aspect-h-9">
                         <img src="../img/Black Grey Minimalist Book Club Logo_LE_upscale_digital_art_x4.jpg" alt="Course Image" class="w-full h-[250px] object-cover rounded-lg shadow">
                     </div>
-                    <a href="test.php?id=<?= $courseId?>">
+                    <a href="Inscription_Cours.php?id=<?= $courseId?>">
                         <button class="w-full bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 mt-6">
                             Inscrivez-vous au cours
                         </button>

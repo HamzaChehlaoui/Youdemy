@@ -1,5 +1,5 @@
 <?php
-require_once('../Controller/t.php');
+require_once('../Controller/controler_EnrollmentManager.php');
 
 ?>;
 
