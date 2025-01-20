@@ -2,6 +2,7 @@
 namespace EnrollmentManager;
 use Connection\database\Database;
 use PDOException;
+use PDO;
 require_once('../Model/Database.php');
 require_once('../Controller/Detail_cours.php');
 class EnrollmentManager
@@ -33,7 +34,7 @@ class EnrollmentManager
     {
         if (!$this->courseId) {
             $_SESSION['error'] = "ID du cours manquant.";
-            header('Location: courses.php');
+            header('Location: view_cours.php');
             exit();
         }
     }
@@ -48,7 +49,7 @@ class EnrollmentManager
                 
                 if ($checkStmt->rowCount() > 0) {
                     $_SESSION['error'] = "Vous êtes déjà inscrit à ce cours.";
-                    header('Location: course_details.php?id=' . $this->courseId);
+                    header('Location: view_cours.php?id=' . $this->courseId);
                     exit();
                 }
 
@@ -63,14 +64,25 @@ class EnrollmentManager
                     ':course_id' => $this->courseId,
                     ':status' => 'active'
                 ]);
+                $contentStmt = $this->conn->prepare("SELECT content_url FROM courses WHERE id_courses = :course_id");
 
-                $_SESSION['success'] = "Inscription au cours réussie!";
-                header('Location: view_cours.php');
-                exit();
+                $contentStmt->execute([':course_id' => $this->courseId]);
 
-            } catch (PDOException $e) {
+                $content = $contentStmt->fetch(PDO::FETCH_ASSOC);
+
+                if ($content) {
+                    $_SESSION['success'] = "Inscription au cours réussie!";
+                    
+                    header("Location: " . $content['content_url']);
+                    exit();
+                
+        } else {
+            $_SESSION['error'] = "La ressource du cours n'a pas été trouvée.";
+            header('Location: view_cours.php'); 
+
+            } }catch (PDOException $e) {
                 $_SESSION['error'] = "Erreur lors de l'inscription au cours: " . $e->getMessage();
-                header('Location: course_details.php?id=' . $this->courseId);
+                header('Location: view_cours.php?id=' . $this->courseId);
                 exit();
             }
         }
