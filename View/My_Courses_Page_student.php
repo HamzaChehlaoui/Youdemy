@@ -1,3 +1,8 @@
+<?php
+$currentTab = $_GET['tab'] ?? 'active';
+require_once('../Controller/controler_my_cours_student.php');
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -12,17 +17,19 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
-                    <a href="#" class="text-2xl font-bold text-white">Youdemy</a>
+                    <a href="index.php" class="text-2xl font-bold text-white">Youdemy</a>
                     <div class="hidden md:flex space-x-8 ml-10">
-                        <a href="#" class="text-white hover:text-gray-300 px-3 py-2">Accueil</a>
-                        <a href="#" class="text-white hover:text-gray-300 px-3 py-2">Cours</a>
-                        <a href="#" class="text-white hover:text-gray-300 px-3 py-2">Mes Cours</a>
+                        <a href="index.php" class="text-white hover:text-gray-300 px-3 py-2">Accueil</a>
+                        <a href="courses.php" class="text-white hover:text-gray-300 px-3 py-2">Cours</a>
+                        <a href="my-courses.php" class="text-white hover:text-gray-300 px-3 py-2">Mes Cours</a>
                     </div>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <button class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800">
-                        Mon Compte
-                    </button>
+                    <form action="logout.php" method="POST">
+                        <button type="submit" class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800">
+                            Déconnexion
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -40,13 +47,16 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="border-b border-gray-200 mb-8">
             <nav class="-mb-px flex space-x-8">
-                <a href="#" class="border-b-2 border-black pb-4 px-1 text-black font-medium">
+                <a href="?tab=active" 
+                   class="border-b-2 <?php echo $currentTab === 'active' ? 'border-black' : 'border-transparent'; ?> pb-4 px-1 text-black font-medium">
                     En cours
                 </a>
-                <a href="#" class="border-b-2 border-transparent pb-4 px-1 text-gray-500 hover:text-black hover:border-gray-300">
+                <a href="?tab=pending" 
+                   class="border-b-2 <?php echo $currentTab === 'pending' ? 'border-black' : 'border-transparent'; ?> pb-4 px-1 text-gray-500 hover:text-black">
                     En attente d'approbation
                 </a>
-                <a href="#" class="border-b-2 border-transparent pb-4 px-1 text-gray-500 hover:text-black hover:border-gray-300">
+                <a href="?tab=completed" 
+                   class="border-b-2 <?php echo $currentTab === 'completed' ? 'border-black' : 'border-transparent'; ?> pb-4 px-1 text-gray-500 hover:text-black">
                     Terminés
                 </a>
             </nav>
@@ -54,49 +64,60 @@
 
         <!-- Course Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Active Course Card -->
+            <?php
+            $coursesToDisplay = [];
+            switch($currentTab) {
+                case 'active':
+                    $coursesToDisplay = $activeCourses;
+                    break;
+                case 'pending':
+                    $coursesToDisplay = $pendingCourses;
+                    break;
+                case 'completed':
+                    $coursesToDisplay = $completedCourses;
+                    break;
+            }
+
+            foreach($coursesToDisplay as $course):
+            ?>
             <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                <img src="/api/placeholder/400/200" alt="Course" class="w-full h-48 object-cover">
+                <img src="<?php echo htmlspecialchars($course['content_url']); ?>" 
+                     alt="<?php echo htmlspecialchars($course['title']); ?>" 
+                     class="w-full h-48 object-cover">
                 <div class="p-6">
-                    <h3 class="text-xl font-semibold text-black mb-2">Développement Web Full-Stack</h3>
-                    <div class="flex items-center mb-4">
-                        <div class="h-2 bg-gray-200 rounded-full flex-grow">
-                            <div class="h-2 bg-black rounded-full" style="width: 60%"></div>
+                    <h3 class="text-xl font-semibold text-black mb-2">
+                        <?php echo htmlspecialchars($course['title']); ?>
+                    </h3>
+                    <?php if($currentTab === 'active'): ?>
+                        <div class="flex items-center mb-4">
+                            <div class="h-2 bg-gray-200 rounded-full flex-grow">
+                                <div class="h-2 bg-black rounded-full" style="width: 60%"></div>
+                            </div>
+                            <span class="ml-2 text-sm text-gray-600">60%</span>
                         </div>
-                        <span class="ml-2 text-sm text-gray-600">60%</span>
-                    </div>
-                    <button class="w-full bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800">
-                        Continuer le cours
-                    </button>
+                        <a href="course.php?id=<?php echo $course['id_courses'];?>"
+                           class="block w-full bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-center">
+                            Continuer le cours
+                        </a>
+                    <?php elseif($currentTab === 'pending'): ?>
+                        <p class="text-gray-600 mb-4">En attente d'approbation</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500">
+                                Demande envoyée le <?php echo date('d/m/Y', strtotime($course['enrollment_date'])); ?>
+                            </span>
+                        </div>
+                    <?php else: ?>
+                        <p class="text-gray-600 mb-4">Cours terminé</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500">
+                                Terminé le <?php echo date('d/m/Y', strtotime($course['enrollment_date'])); ?>
+                            </span>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
-
-            <!-- Pending Approval Card -->
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                <img src="/api/placeholder/400/200" alt="Course" class="w-full h-48 object-cover">
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold text-black mb-2">UI/UX Design Masterclass</h3>
-                    <p class="text-gray-600 mb-4">En attente d'approbation</p>
-                    <div class="flex justify-between items-center">
-                        <span class="text-sm text-gray-500">Demande envoyée le 12/01/2024</span>
-                        <button class="text-black hover:underline">Voir le statut</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Completed Course Card -->
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                <img src="/api/placeholder/400/200" alt="Course" class="w-full h-48 object-cover">
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold text-black mb-2">Introduction à Python</h3>
-                    <p class="text-gray-600 mb-4">Cours terminé</p>
-                    <div class="flex justify-between items-center">
-                        <span class="text-sm text-gray-500">Terminé le 15/12/2024</span>
-                    </div>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
     </div>
-
 </body>
 </html>
