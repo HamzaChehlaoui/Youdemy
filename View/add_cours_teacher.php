@@ -1,9 +1,11 @@
 <?php
-
 require_once ('../Controller/Add_Cours.php');
+// session_start();
+if($_SESSION['role']!='teacher'){
+    header('Location:login.php');
+}
 
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>

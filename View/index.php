@@ -1,4 +1,6 @@
-<?php require_once('../Controller/Show_cours.php');?>
+<?php require_once('../Controller/Show_cours.php');
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -16,17 +18,25 @@
                     <a href="#" class="text-2xl font-bold text-white">Youdemy</a>
                     <div class="hidden md:flex space-x-8 ml-10">
                         <a href="#" class="text-white hover:text-gray-300 px-3 py-2">Accueil</a>
-                        <a href="view/cours.php" class="text-white hover:text-gray-300 px-3 py-2">Cours</a>
-                        <a href="loug_out.php" class="text-white hover:text-gray-300 px-3 py-2">Catégories</a>
                     </div>
                 </div>
                 <div class="flex items-center space-x-4">
+                    <?php if($_SESSION['role']==null){
+                    ?>
                     <a href="login.php"><button class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800">
                         Connexion
                     </button></a>
-                    <button class="border border-black text-black px-4 py-2 rounded-lg hover:bg-gray-100">
-                        Inscription
-                    </button>
+                    <?php }else{?>
+                    
+                    <a href="loug_out.php"><button class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800">
+                     Déconnexion
+                    </button></a>
+                    
+                    <?php }if($_SESSION['role']=='student'){?>
+                        <a href="My_Courses_Page_student.php"><button class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800">
+                     My courses
+                    </button></a>
+                    <?php }?>
                 </div>
             </div>
         </div>

@@ -3,6 +3,7 @@
 // use users\Admin;
 require_once "../Controller/Teacher.php";
 
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,15 +24,17 @@ require_once "../Controller/Teacher.php";
                     $result = $teacher->getAllTeachers();
                     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                         $statusClass = $row['status'] === 'active' ? 'bg-green-100 text-green-800' : 
-                                     ($row['status'] === 'suspended' ? 'bg-yellow-100 text-yellow-800' : 
-                                     'bg-gray-100 text-gray-800');
+                                    ($row['status'] === 'suspended' ? 'bg-yellow-100 text-yellow-800' : 
+                                    'bg-gray-100 text-gray-800');
                         ?>
                         <div class="bg-white rounded-lg shadow-lg p-6">
                             <div class="flex justify-between items-start">
                                 <div>
-                                   
+                                
                                     <h3 class="text-xl font-semibold"><?php echo htmlspecialchars($row['username']); ?></h3>
+                                    <?php if($row['role']=='teacher') {?>
                                     <p class="text-gray-600"><?php echo $row['course_count']; ?> cours · <?php echo $row['student_count']; ?> étudiants</p>
+                                    <?php }?>
                                     <p class="text-gray-600 mt-2">Email: <?php echo htmlspecialchars($row['email']); ?></p>
                                     <div class="mt-2">
                                         <span class="<?php echo $statusClass; ?> text-xs px-2 py-1 rounded">

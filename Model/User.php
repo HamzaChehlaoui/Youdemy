@@ -148,7 +148,7 @@
                         JOIN courses c ON ce.course_id = c.id_courses
                         WHERE c.teacher_id = u.id_user) as student_count
                     FROM " . $this->table . " u 
-                    WHERE u.role = 'teacher'";  
+                    WHERE u.role = 'teacher' or u.role ='student'";  
             
             $stmt = $this->conn->prepare($query);
             $stmt->execute();

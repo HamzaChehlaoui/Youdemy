@@ -34,7 +34,7 @@ class EnrollmentManager
     {
         if (!$this->courseId) {
             $_SESSION['error'] = "ID du cours manquant.";
-            header('Location: view_cours.php');
+            header('Location: index.php');
             exit();
         }
     }
@@ -49,7 +49,7 @@ class EnrollmentManager
                 
                 if ($checkStmt->rowCount() > 0) {
                     $_SESSION['error'] = "Vous êtes déjà inscrit à ce cours.";
-                    header('Location: view_cours.php?id=' . $this->courseId);
+                    header('Location: index.php?id=' . $this->courseId);
                     exit();
                 }
 
@@ -78,11 +78,11 @@ class EnrollmentManager
                 
         } else {
             $_SESSION['error'] = "La ressource du cours n'a pas été trouvée.";
-            header('Location: view_cours.php'); 
+            header('Location: index.php'); 
 
             } }catch (PDOException $e) {
                 $_SESSION['error'] = "Erreur lors de l'inscription au cours: " . $e->getMessage();
-                header('Location: view_cours.php?id=' . $this->courseId);
+                header('Location: index.php?id=' . $this->courseId);
                 exit();
             }
         }

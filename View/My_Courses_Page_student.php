@@ -20,8 +20,8 @@ require_once('../Controller/controler_my_cours_student.php');
                     <a href="index.php" class="text-2xl font-bold text-white">Youdemy</a>
                     <div class="hidden md:flex space-x-8 ml-10">
                         <a href="index.php" class="text-white hover:text-gray-300 px-3 py-2">Accueil</a>
-                        <a href="courses.php" class="text-white hover:text-gray-300 px-3 py-2">Cours</a>
-                        <a href="my-courses.php" class="text-white hover:text-gray-300 px-3 py-2">Mes Cours</a>
+
+                        <a href="#" class="text-white hover:text-gray-300 px-3 py-2">Mes Cours</a>
                     </div>
                 </div>
                 <div class="flex items-center space-x-4">

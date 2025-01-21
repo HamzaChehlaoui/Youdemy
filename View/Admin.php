@@ -1,4 +1,8 @@
 <?php 
+session_start();
+if($_SESSION['role']!='admin'){
+    header('Location:login.php');
+}
 require_once "../Controller/Gere_gategory_tags.php";
 require_once "../Controller/Teacher.php";
 
@@ -22,7 +26,7 @@ require_once "../Controller/Teacher.php";
                 </div>
                 <div class="flex items-center space-x-4">
                     <span class="text-white">Admin</span>
-                    <a href="#" class="text-white hover:text-gray-300">Déconnexion</a>
+                    <a href="loug_out.php" class="text-white hover:text-gray-300">Déconnexion</a>
                 </div>
             </div>
         </div>
@@ -53,8 +57,7 @@ require_once "../Controller/Teacher.php";
     
         <?php 
         require('active_teacher.php');
-
-            require('Content_Management.php');
+        require('Content_Management.php');
         ?>
 
         
