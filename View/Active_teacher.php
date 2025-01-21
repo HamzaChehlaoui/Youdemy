@@ -29,6 +29,7 @@ require_once "../Controller/Teacher.php";
                         <div class="bg-white rounded-lg shadow-lg p-6">
                             <div class="flex justify-between items-start">
                                 <div>
+                                   
                                     <h3 class="text-xl font-semibold"><?php echo htmlspecialchars($row['username']); ?></h3>
                                     <p class="text-gray-600"><?php echo $row['course_count']; ?> cours · <?php echo $row['student_count']; ?> étudiants</p>
                                     <p class="text-gray-600 mt-2">Email: <?php echo htmlspecialchars($row['email']); ?></p>

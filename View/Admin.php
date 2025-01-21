@@ -51,8 +51,9 @@ require_once "../Controller/Teacher.php";
         <div class="max-w-7xl mx-auto px-4 py-8">
             <!-- Teacher Validation Section -->
     
-        <?php require('teacher.php');
-        
+        <?php 
+        require('active_teacher.php');
+
             require('Content_Management.php');
         ?>
 

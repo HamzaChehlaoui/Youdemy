@@ -1,6 +1,9 @@
 <?php
-
 require_once('../Controller/Detail_cours.php');
+session_start();
+if($_SESSION['role']!='student'){
+    header('Location:login.php');
+}
 $courseId = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 ?>

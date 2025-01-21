@@ -19,10 +19,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!empty($_POST['email']) && !empty($_POST['password'])) {
                 $user->setemail( $_POST['email']) ;
                 $user->setpassword( $_POST['password']) ;
-                
                 $result = $user->login();
                 if ($result['success']) {
-                    header('Location: Course_Management_teacher.php');
+                    if($_SESSION['role']=='student'){
+                        header('Location:index.php');
+                    }else if($_SESSION['role']=='teacher'){
+                        header('Location: Course_Management_teacher.php');
+
+                    }else if($_SESSION['role']=='admin'){
+                        header('Location:Admin.php');
+                    }
                     exit;
                 } else {
                     $error = $result['message'];

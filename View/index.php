@@ -17,11 +17,11 @@
                     <div class="hidden md:flex space-x-8 ml-10">
                         <a href="#" class="text-white hover:text-gray-300 px-3 py-2">Accueil</a>
                         <a href="view/cours.php" class="text-white hover:text-gray-300 px-3 py-2">Cours</a>
-                        <a href="#" class="text-white hover:text-gray-300 px-3 py-2">Catégories</a>
+                        <a href="loug_out.php" class="text-white hover:text-gray-300 px-3 py-2">Catégories</a>
                     </div>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <a href="view/login.php"><button class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800">
+                    <a href="login.php"><button class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800">
                         Connexion
                     </button></a>
                     <button class="border border-black text-black px-4 py-2 rounded-lg hover:bg-gray-100">
@@ -92,7 +92,6 @@
                     <?php endforeach; ?>
                 </div>
             </div>
-            
             <?php if (!empty($dbVerification['orphaned_courses'])): ?>
                 <div class="mt-4 p-4 bg-red-100 rounded-lg">
                     <h3 class="font-bold text-lg mb-2">Cours orphelins détectés</h3>

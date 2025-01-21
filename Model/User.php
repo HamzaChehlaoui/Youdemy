@@ -46,9 +46,14 @@
         public function getstatus(){
             return $this->status;
         }
+       
         public function register() {
             try {
-
+                if($this->role=='student'){
+                    $this->status='active';
+                }else if($this->role=='teacher'){
+                    $this->status='pending';
+                }
                 if ($this->emailExists()) {
                     return ["success" => false, "message" => "Cet email est déjà utilisé"];
                 }
@@ -56,10 +61,10 @@
                 if ($this->usernameExists()) {
                     return ["success" => false, "message" => "Ce nom d'utilisateur est déjà pris"];
                 }
-
+        
                 $query = "INSERT INTO " . $this->table . "
                         (username, email, password, role, status)
-                        VALUES (:username, :email, :password, :role, 'pending')";
+                        VALUES (:username, :email, :password, :role, :status)";
 
                 $stmt = $this->conn->prepare($query);
 
@@ -69,6 +74,8 @@
                 $stmt->bindParam(":email", $this->email);
                 $stmt->bindParam(":password", $this->password);
                 $stmt->bindParam(":role", $this->role);
+                $stmt->bindParam(":status", $this->status);
+
 
                 if ($stmt->execute()) {
                     return ["success" => true, "message" => "Compte créé avec succès"];
