@@ -1,5 +1,5 @@
 <?php
-require_once '../Controller/login_Chek.php';
+require_once '../Controller/user.php';
 ?>
 
 <!DOCTYPE html>

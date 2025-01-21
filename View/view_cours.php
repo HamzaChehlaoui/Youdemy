@@ -96,11 +96,11 @@ require_once('../Controller/Show_cours.php');
                 <select name="category" class="px-4 py-2 border rounded-lg">
                     <option value="">Toutes les catégories</option>
                     <?php foreach ($categories as $category): ?>
-                        <option value="<?= htmlspecialchars($category['id_categories']) ?>"
-                                <?= ($categoryId == $category['id_categories']) ? 'selected' : '' ?>>
-                            <?= htmlspecialchars($category['name']) ?>
-                        </option>
+                                <option value="<?php echo htmlspecialchars($category->id); ?>">
+                                    <?php echo htmlspecialchars($category->name); ?>
+                                </option>
                     <?php endforeach; ?>
+                    
                 </select>
                 <input type="text" 
                        name="search" 

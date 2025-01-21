@@ -89,11 +89,10 @@ $selectedTag = $_GET['tag_id'] ?? '';
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
                         <option value="">Toutes les catégories</option>
                         <?php foreach ($categories as $category): ?>
-                            <option value="<?php echo $category['id_categories']; ?>"
-                                    <?php echo $selectedCategory == $category['id_categories'] ? 'selected' : ''; ?>>
-                                <?php echo htmlspecialchars($category['name']); ?>
-                            </option>
-                        <?php endforeach; ?>
+                                <option value="<?php echo htmlspecialchars($category->id); ?>">
+                                    <?php echo htmlspecialchars($category->name); ?>
+                                </option>
+                    <?php endforeach; ?>
                     </select>
                 </div>
                 <div>

@@ -51,14 +51,6 @@ require_once('../Controller/controler_my_cours_student.php');
                    class="border-b-2 <?php echo $currentTab === 'active' ? 'border-black' : 'border-transparent'; ?> pb-4 px-1 text-black font-medium">
                     En cours
                 </a>
-                <a href="?tab=pending" 
-                   class="border-b-2 <?php echo $currentTab === 'pending' ? 'border-black' : 'border-transparent'; ?> pb-4 px-1 text-gray-500 hover:text-black">
-                    En attente d'approbation
-                </a>
-                <a href="?tab=completed" 
-                   class="border-b-2 <?php echo $currentTab === 'completed' ? 'border-black' : 'border-transparent'; ?> pb-4 px-1 text-gray-500 hover:text-black">
-                    Terminés
-                </a>
             </nav>
         </div>
 
@@ -93,9 +85,9 @@ require_once('../Controller/controler_my_cours_student.php');
                             <div class="h-2 bg-gray-200 rounded-full flex-grow">
                                 <div class="h-2 bg-black rounded-full" style="width: 60%"></div>
                             </div>
-                            <span class="ml-2 text-sm text-gray-600">60%</span>
+                            
                         </div>
-                        <a href="course.php?id=<?php echo $course['id_courses'];?>"
+                        <a href="<?php echo $course['content_url'];?>"
                            class="block w-full bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-center">
                             Continuer le cours
                         </a>

@@ -88,10 +88,10 @@ require_once ('../Controller/Add_Cours.php');
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black sm:text-sm">
                                 <option value="">Sélectionnez une catégorie</option>
                                 <?php foreach ($categories as $category): ?>
-                                    <option value="<?php echo htmlspecialchars($category['id_categories']); ?>">
-                                        <?php echo htmlspecialchars($category['name']); ?>
-                                    </option>
-                                <?php endforeach; ?>
+                                <option value="<?php echo htmlspecialchars($category->id); ?>">
+                                    <?php echo htmlspecialchars($category->name); ?>
+                                </option>
+                    <?php endforeach; ?>
                             </select>
                         </div>
 

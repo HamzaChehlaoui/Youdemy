@@ -72,10 +72,10 @@ require_once "../Controller/Teacher.php";
             <div class="space-y-4">
                 <?php foreach ($coursesByCategory as $category): ?>
                 <div class="flex justify-between">
-                    <span><?php echo htmlspecialchars($category['category_name']); ?></span>
+                    <span> <?php echo htmlspecialchars($category->name); ?></span>
                     <span class="font-bold"><?php echo $category['course_count']; ?></span>
                 </div>
-                <?php endforeach; ?>
+                <?php endforeach;?>
             </div>
         </div>
 
