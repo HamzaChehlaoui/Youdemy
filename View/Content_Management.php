@@ -60,13 +60,14 @@ $selectedTag = $_GET['tag_id'] ?? '';
                         </form>
                     </div>
                     <div class="space-y-2">
+                  
                         <?php foreach ($categories as $category): ?>
                         <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
-                            <span><?php echo htmlspecialchars($category['name']); ?></span>
+                            <span><?php echo htmlspecialchars($category->name); ?></span>
                             <div class="flex space-x-2">
                                 <form method="POST" style="display: inline;">
                                     <input type="hidden" name="action" value="deleteCategory">
-                                    <input type="hidden" name="id" value="<?php echo $category['id_categories']; ?>">
+                                    <input type="hidden" name="id" value="<?php echo htmlspecialchars($category->id); ?>">
                                     <button type="submit" class="text-red-600 hover:text-red-800">Supprimer</button>
                                 </form>
                             </div>

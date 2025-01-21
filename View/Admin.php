@@ -62,7 +62,6 @@ require_once "../Controller/Teacher.php";
     </div>
 </div>
 
-
             <!-- Statistics Section -->
             <div id="stats-tab" class="tab-content hidden">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -72,7 +71,7 @@ require_once "../Controller/Teacher.php";
             <div class="space-y-4">
                 <?php foreach ($coursesByCategory as $category): ?>
                 <div class="flex justify-between">
-                    <span> <?php echo htmlspecialchars($category->name); ?></span>
+                    <span> <?php echo htmlspecialchars($category['category_name']); ?></span>
                     <span class="font-bold"><?php echo $category['course_count']; ?></span>
                 </div>
                 <?php endforeach;?>
