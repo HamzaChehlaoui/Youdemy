@@ -24,9 +24,7 @@ $courseId = isset($_GET['id']) ? intval($_GET['id']) : 0;
                 <div class="flex items-center">
                     <a href="#" class="text-2xl font-bold text-white">Youdemy</a>
                     <div class="hidden md:flex space-x-8 ml-10">
-                        <a href="#" class="text-white hover:text-gray-300 px-3 py-2">Accueil</a>
-                        <a href="#" class="text-white hover:text-gray-300 px-3 py-2">Cours</a>
-                        <a href="#" class="text-white hover:text-gray-300 px-3 py-2">Mes Cours</a>
+                        <a href="index.php" class="text-white hover:text-gray-300 px-3 py-2">Accueil</a>
                     </div>
                 </div>
                 <div class="flex items-center space-x-4">

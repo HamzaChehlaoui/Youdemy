@@ -21,7 +21,7 @@ session_start();
                     </div>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <?php if($_SESSION['role']==null){
+                    <?php if(!isset($_SESSION['user_id'])){
                     ?>
                     <a href="login.php"><button class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800">
                         Connexion
@@ -29,12 +29,11 @@ session_start();
                     <?php }else{?>
                     
                     <a href="loug_out.php"><button class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800">
-                     Déconnexion
+                    Déconnexion
                     </button></a>
-                    
                     <?php }if($_SESSION['role']=='student'){?>
                         <a href="My_Courses_Page_student.php"><button class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800">
-                     My courses
+                    My courses
                     </button></a>
                     <?php }?>
                 </div>

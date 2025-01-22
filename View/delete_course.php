@@ -148,5 +148,5 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 }
 
 // Redirect back to course management page
-header('Location: test.php');
+header('Location: Course_Management_teacher.php');
 exit;

@@ -348,7 +348,7 @@ $tags = $editor->getTags();
 
                 <div class="form-group">
                     <button type="submit" class="btn">Mettre à jour le cours</button>
-                    <a href="test.php" class="btn" style="background: #6b7280;">Annuler</a>
+                    <a href="Course_Management_teacher.php" class="btn" style="background: #6b7280;">Annuler</a>
                 </div>
             </form>
         </div>
