@@ -34,7 +34,7 @@ CREATE TABLE courses (
     content_url VARCHAR(255) NOT NULL,
     teacher_id INT NOT NULL,
     category_id INT NOT NULL,
-    status ENUM('draft', 'published', 'archived') DEFAULT 'draft',
+    status ENUM('draft', 'published', 'archived') DEFAULT 'published',
     FOREIGN KEY (teacher_id) REFERENCES users(id_user) ON DELETE CASCADE,
     FOREIGN KEY (category_id) REFERENCES categories(id_categories) ON DELETE RESTRICT
 );

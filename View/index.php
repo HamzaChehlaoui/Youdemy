@@ -31,7 +31,7 @@ session_start();
                     <a href="loug_out.php"><button class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800">
                     Déconnexion
                     </button></a>
-                    <?php }if($_SESSION['role']=='student'){?>
+                    <?php }if(isset($_SESSION['role']) && $_SESSION['role']=='student'){?>
                         <a href="My_Courses_Page_student.php"><button class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800">
                     My courses
                     </button></a>
