@@ -337,7 +337,7 @@ $tags = $editor->getTags();
                     </select>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group hidden">
                     <label for="status">Statut</label>
                     <select id="status" name="status" required>
                         <option value="draft" <?php echo $courseData['status'] === 'draft' ? 'selected' : ''; ?>>Brouillon</option>

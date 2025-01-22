@@ -100,6 +100,7 @@ class Course {
 
         return $stmt->execute();
     }
+
 }
 
 class CourseDeleter {

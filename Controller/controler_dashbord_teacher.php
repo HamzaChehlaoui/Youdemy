@@ -77,6 +77,23 @@ class Course {
 
         return $stmt->execute();
     }
+    public function getAllCoursesTeacher($id){
+        $query = "SELECT 
+                    c.*, u.username as teacher_name, 
+                    cat.name as category_name,
+                    (SELECT COUNT(*) FROM enrollments e WHERE e.course_id = c.id_courses) as student_count
+                FROM 
+                    " . $this->table . " c
+                    LEFT JOIN users u ON c.teacher_id = u.id_user
+                    LEFT JOIN categories cat ON c.category_id = cat.id_categories
+                    WHERE teacher_id=:id 
+                ORDER BY 
+                    c.id_courses DESC";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute(["id"=>$id]);
+        return $stmt;
+    }
 }
 
 $database = new Database();

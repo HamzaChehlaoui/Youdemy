@@ -54,18 +54,18 @@ class StatisticsManager {
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-    public function getTotalStudents() {
-        $query = "SELECT COUNT(*) as total FROM users WHERE role = 'student'";
+    public function getTotalStudents($id) {
+        $query = "select count(DISTINCT student_id) as total from enrollments e,courses c where e.course_id=c.id_courses and c.teacher_id=:id;";
         $stmt = $this->conn->prepare($query);
-        $stmt->execute();
+        $stmt->execute(["id"=>$id]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['total'];
     }
 
-    public function getActiveCourses() {
-        $query = "SELECT COUNT(*) as total FROM courses WHERE status = 'published'";
+    public function getActiveCourses($id) {
+        $query = "SELECT COUNT(*) as total FROM courses WHERE status = 'published' AND teacher_id=:id";
         $stmt = $this->conn->prepare($query);
-        $stmt->execute();
+        $stmt->execute(["id"=>$id]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['total'];
     }

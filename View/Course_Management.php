@@ -117,7 +117,7 @@ require_once('../Controller/controler_dashbord_teacher.php');
                 </thead>
                 <tbody>
                     <?php
-                    $result = $course->getAllCourses();
+                    $result = $course->getAllCoursesTeacher($_SESSION["user_id"]);
                     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                         $tags = $course->getCourseTags($row['id_courses']);
                         $tagsList = [];

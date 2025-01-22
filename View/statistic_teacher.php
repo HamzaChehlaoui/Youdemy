@@ -3,7 +3,7 @@ use Statistic\StatisticsManager;
 use Connection\database\Database;
 require_once('../Model/Database.php');
 require_once('../Model/Statistics.php');
-
+session_start();
 $database=new Database();
 $db=$database->getConnection();
 $stats = new StatisticsManager($db);
@@ -108,7 +108,7 @@ $stats = new StatisticsManager($db);
                             Total Étudiants
                         </div>
                         <div class="stat-value">
-                            <?php echo number_format($stats->getTotalStudents()); ?>
+                            <?php echo number_format($stats->getTotalStudents($_SESSION['user_id'])); ?>
                         </div>
                     </div>
                 </div>
@@ -129,7 +129,7 @@ $stats = new StatisticsManager($db);
                             Cours Actifs
                         </div>
                         <div class="stat-value">
-                            <?php echo number_format($stats->getActiveCourses()); ?>
+                            <?php echo number_format($stats->getActiveCourses($_SESSION['user_id'])); ?>
                         </div>
                     </div>
                 </div>
