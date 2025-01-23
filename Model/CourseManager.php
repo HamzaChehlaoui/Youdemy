@@ -3,10 +3,10 @@ namespace Coursemanager;
 use PDO;
 
 abstract class Course {
-    public $title;
-    public $description;
-    public $content_type;
-    public $content_url;
+    protected $title;
+    protected $description;
+    protected $content_type;
+    protected $content_url;
     
     public function __construct($title, $description, $content_type, $content_url) {
         $this->title = $title;
