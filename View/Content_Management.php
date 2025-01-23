@@ -25,7 +25,7 @@ $selectedTag = $_GET['tag_id'] ?? '';
                         <form method="POST">
                             <input type="hidden" name="action" value="addTag">
                             <input type="text" name="name" id="newTag" placeholder="Nouveau tag" 
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md">
                             <button type="submit" class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
                                 Ajouter un tag
                             </button>
@@ -59,7 +59,7 @@ $selectedTag = $_GET['tag_id'] ?? '';
                         </form>
                     </div>
                     <div class="space-y-2">
-                  
+                
                         <?php foreach ($categories as $category): ?>
                         <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
                             <span><?php echo htmlspecialchars($category->name); ?></span>
@@ -142,8 +142,6 @@ $selectedTag = $_GET['tag_id'] ?? '';
                         </td>
                         <td class="px-6 py-4"><?php echo $course['student_count']; ?></td>
                         <td class="px-6 py-4">
-                            <a href="edit_course.php?id=<?php echo $course['id_courses']; ?>" 
-                               class="text-blue-600 hover:text-blue-800">Modifier</a>
                             <form method="POST" style="display: inline;">
                                 <input type="hidden" name="action" value="deleteCourse">
                                 <input type="hidden" name="id" value="<?php echo $course['id_courses']; ?>">
